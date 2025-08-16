@@ -46,7 +46,7 @@ We can see that we dont have the single mode collapse, but we see that it does n
 We see that the MLP cannot catch patterns in a resonnable training time.
 Let's change the architecture.
 
-I want to switch from D: MLP, G: MLP to a D: CNN, G: dense network. This is called a DCGAN (Dense Convolutional Generative Adversarial Network) which is known to be good at image generation.
+I want to switch from D: MLP, G: MLP to a D: CNN, G:conv transpose. This is called a DCGAN (Dense Convolutional Generative Adversarial Network) which is known to be good at image generation.
 
 tbc
 
