@@ -36,7 +36,17 @@ A solution to this known problem is to introduce a minibatch discrimination laye
 I implemented a new type of layer, the minibatchDiscrimination one, trained with this new layer added to the discriminator. Here are the results:
 <img width="1536" height="754" alt="training_GAN_flag_RGB_tv_loss_minibatch" src="https://github.com/user-attachments/assets/e6095e45-8dfb-4d2b-8c43-f7b91d97f9f9" />
 One can see that it is much better, the diversity of the flags is much better. We still have the same overfiting problem though with almost all the flags generated being existing flags. But it's not 100% from the dataset, the 9th flag on the last looks like a combinasion of the hong kong flag and the french flag. The MLP, even if it's not an optimal way to catch details in images, seems to catch details in the flags. But 
+we see that the MLP cannot get rid of the noisy aspect (which is normal) even with tv-loss. What we can try, is to see if the details that the model catches are just caught because of the overfiting or if hte MLP can really catch some details.
+In order to do that we need to have a way bigger dataset than the flag one (only 254). We could do some data augmentation on the flag dataset, which would make it be maybe around 1000 elements (by fliping in both direction and applying color filters). But it would still not be enough.
 
+So I decided to use the CIFAR-10 dataset, which is a dataset of 50 000 pictures of 10 classes of animals and objects in format 32*32. 
+He are the results on this dataset with the same MLP:
+<img width="1536" height="754" alt="training_GAN_MLP_CIFAR_minibatch" src="https://github.com/user-attachments/assets/2ce9a406-e2ee-4af9-aa95-54af13a67c2c" />
+We can see that we dont have the single mode collapse, but we see that it does not produce a recongnisable shape. We dont let it train for enough time maybe, but the training is very long.
+We see that the MLP cannot catch patterns in a resonnable training time.
+Let's change the architecture.
+
+I want to switch from D: MLP, G: MLP to a D: CNN, G: dense network. This is called a DCGAN (Dense Convolutional Generative Adversarial Network) which is known to be good at image generation.
 
 tbc
 
